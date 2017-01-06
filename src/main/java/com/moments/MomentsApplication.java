@@ -7,15 +7,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @SpringBootApplication
-@Controller
 public class MomentsApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(MomentsApplication.class, args);
 	}
 
-	@RequestMapping(value = "/homepage", method = RequestMethod.GET)
-	public String hello() {
-		return "hello";
-	}
 }
