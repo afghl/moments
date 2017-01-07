@@ -9,10 +9,8 @@ public class Following {
     @Id
     private Integer id;
 
-    @Column(name = "userId")
     private Integer userId;
 
-    @Column(name = "followerId")
     private Integer followerId;
 
     public Integer getId() {
