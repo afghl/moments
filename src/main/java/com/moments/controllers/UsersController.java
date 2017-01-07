@@ -1,27 +1,30 @@
 package com.moments.controllers;
 
 import com.moments.models.User;
+import com.moments.services.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.springframework.web.bind.annotation.RequestMethod.GET;
+
 @RestController
 @RequestMapping("/users")
 public class UsersController {
 
-    @RequestMapping(method = RequestMethod.GET)
-    public String index() {
-        List<User> users = new ArrayList<>();
-        User u = new User();
-        u.setId(1);
-        u.setName("cool");
-        users.add(u);
+    @Autowired
+    private UserService service;
 
-//        return users;
-        return "Helloworld!";
+    @RequestMapping(value = "", method = GET)
+    public Page<User> index(
+        @RequestParam(value="page", defaultValue = "0", required = false) int page,
+        @RequestParam(value="pageSize", defaultValue = "10", required = false) int pageSize
+    ) {
+        return service.findByPage(page, pageSize);
     }
 }
