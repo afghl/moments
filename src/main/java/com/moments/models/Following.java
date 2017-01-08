@@ -12,6 +12,14 @@ public class Following {
 
     private Integer followerId;
 
+    public Following() {}
+
+    // TODO: how to refactor this?
+    public Following(User u1, User u2) {
+        this.userId = u1.getId();
+        this.followerId = u2.getId();
+    }
+
     public Integer getId() {
         return id;
     }
