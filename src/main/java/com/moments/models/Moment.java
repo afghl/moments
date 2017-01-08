@@ -1,9 +1,11 @@
 package com.moments.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import org.joda.time.DateTime;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+
+import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 public class Moment {
@@ -14,6 +16,21 @@ public class Moment {
     private String body;
 
     private Integer userId;
+
+    @Temporal(TemporalType.DATE)
+    private Date createdAt;
+
+    @Temporal(TemporalType.DATE)
+    private Date updatedAt;
+
+    public Moment() {}
+
+    public Moment(String body, Integer userId) {
+        this.body = body;
+        this.userId = userId;
+        createdAt = new Date();
+        updatedAt = new Date();
+    }
 
     public Integer getId() {
         return id;
@@ -37,5 +54,21 @@ public class Moment {
 
     public void setUserId(Integer userId) {
         this.userId = userId;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Date getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(Date updatedAt) {
+        this.updatedAt = updatedAt;
     }
 }

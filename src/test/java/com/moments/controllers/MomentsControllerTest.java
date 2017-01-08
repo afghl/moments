@@ -1,11 +1,11 @@
 package com.moments.controllers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.moments.MomentsApplication;
+import com.moments.models.Moment;
 import com.moments.models.User;
+import com.moments.repositories.MomentRepository;
 import com.moments.repositories.UserRepository;
-import com.moments.services.UserService;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -21,18 +21,20 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = MomentsApplication.class)
 @WebAppConfiguration
 @Transactional
-public class UsersControllerTest {
+public class MomentsControllerTest {
 
     @Autowired
-    UserRepository repository;
+    UserRepository userRepository;
+
+    @Autowired
+    MomentRepository momentRepository;
 
     MockMvc mvc;
 
@@ -41,19 +43,24 @@ public class UsersControllerTest {
 
     @Before
     public void setUp() throws JsonProcessingException {
-        User u1 = new User("张三", null);
-        User u2 = new User("李四", null);
+        User u1 = createUser();
 
-
-        repository.save(u1);
-        repository.save(u2);
+        momentRepository.save(new Moment("moment1", u1.getId()));
+        momentRepository.save(new Moment("moment2", u1.getId()));
+        momentRepository.save(new Moment("moment3", u1.getId()));
 
         mvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
     }
 
+    private User createUser() {
+        userRepository.save(new User("张三", null));
+        return userRepository.findAll().get(0);
+    }
+
     @Test
     public void testIndex() throws Exception {
-        MvcResult result = mvc.perform(get("/users")
+        User u = userRepository.findAll().get(0);
+        MvcResult result = mvc.perform(get("/moments?userId=" + u.getId())
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andReturn();
@@ -62,6 +69,4 @@ public class UsersControllerTest {
         Assert.assertNotNull(result);
         Assert.assertEquals(200, result.getResponse().getStatus());
     }
-
-
 }
