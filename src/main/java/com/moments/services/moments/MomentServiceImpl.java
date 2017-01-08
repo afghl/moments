@@ -1,8 +1,9 @@
-package com.moments.services;
+package com.moments.services.moments;
 
 import com.moments.models.Moment;
 import com.moments.models.User;
 import com.moments.repositories.MomentRepository;
+import com.moments.services.moments.MomentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

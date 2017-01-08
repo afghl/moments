@@ -1,11 +1,9 @@
 package com.moments.controllers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.moments.MomentsApplication;
 import com.moments.models.User;
 import com.moments.repositories.UserRepository;
-import com.moments.services.UserService;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

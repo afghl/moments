@@ -1,4 +1,4 @@
-package com.moments.services;
+package com.moments.services.moments;
 
 import com.moments.models.Moment;
 import com.moments.models.User;

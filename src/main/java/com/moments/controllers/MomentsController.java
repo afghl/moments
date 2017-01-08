@@ -3,7 +3,7 @@ package com.moments.controllers;
 
 import com.moments.models.Moment;
 import com.moments.models.User;
-import com.moments.services.MomentService;
+import com.moments.services.moments.MomentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

@@ -1,9 +1,10 @@
-package com.moments.services;
+package com.moments.services.users;
 
 import com.moments.models.Following;
 import com.moments.models.User;
 import com.moments.repositories.FollowingRepository;
 import com.moments.repositories.UserRepository;
+import com.moments.services.users.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -27,8 +28,8 @@ public class UserServiceImpl implements UserService {
         return users.findAll(pageRequest);
     }
 
-    public List<User> findFollowers(int userId, int page, int pageSize) {
-        List<Following> followerList = followings.findByUserId(userId, new PageRequest(page, pageSize));
+    public List<User> findFollowers(int userId) {
+        List<Following> followerList = followings.findByUserId(userId);
 
         List<Integer> ids = followerList
                 .stream()
