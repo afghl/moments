@@ -51,7 +51,7 @@ public class FollowerControllerTest {
         userRepository.save(u1);
         userRepository.save(u2);
 
-        followings.followingEachOther(u1, u2);
+        followings.followingEachOther(u1.getId(), u2.getId());
 
         mvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
     }
