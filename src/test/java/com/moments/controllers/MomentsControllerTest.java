@@ -60,7 +60,7 @@ public class MomentsControllerTest {
     @Test
     public void testIndex() throws Exception {
         User u = userRepository.findAll().get(0);
-        MvcResult result = mvc.perform(get("/moments?userId=" + u.getId())
+        MvcResult result = mvc.perform(get("/users/" + u.getId() + "/moments")
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andReturn();
