@@ -4,6 +4,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
+@Table(name = "moment")
 public class Moment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -11,19 +12,20 @@ public class Moment {
 
     private String body;
 
-    private Long userId;
-
     @Temporal(TemporalType.DATE)
     private Date createdAt;
 
     @Temporal(TemporalType.DATE)
     private Date updatedAt;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
     public Moment() {}
 
     public Moment(String body, Long userId) {
         this.body = body;
-        this.userId = userId;
         createdAt = new Date();
         updatedAt = new Date();
     }
@@ -44,14 +46,6 @@ public class Moment {
         this.body = body;
     }
 
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
-
     public Date getCreatedAt() {
         return createdAt;
     }
@@ -66,5 +60,13 @@ public class Moment {
 
     public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

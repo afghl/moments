@@ -1,11 +1,11 @@
 package com.moments.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Collection;
 
 @Entity
+@Table(name = "user")
 public class User {
 
     @Id
@@ -15,6 +15,9 @@ public class User {
     private String name;
 
     private String avatar;
+
+    @OneToMany(cascade = { CascadeType.ALL }, mappedBy = "user")
+    private Collection<Moment> moments = new ArrayList<>();
 
     public User() {}
 
