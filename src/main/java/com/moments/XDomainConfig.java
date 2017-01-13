@@ -17,9 +17,8 @@ public class XDomainConfig {
             public void addCorsMappings(CorsRegistry registry) {
                 // TODO: learn how to handle cross origin
                 registry
-                    .addMapping("/followers")
-                    .allowedOrigins("http://localhost:3000")
-                    .allowedOrigins("http://localhost:3001");
+                    .addMapping("/api/followers")
+                    .allowedOrigins("http://localhost:3000");
             }
         };
     }

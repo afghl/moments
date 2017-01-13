@@ -23,7 +23,7 @@ public class MomentsController {
     private MomentService service;
 
     @CrossOrigin
-    @RequestMapping(value = "/users/{userId}/moments", method = GET)
+    @RequestMapping(value = "/api/users/{userId}/moments", method = GET)
     public String index(
             @PathVariable Long userId,
             @RequestParam(defaultValue = "0", required = false) Long lastMomentId,
