@@ -15,7 +15,7 @@ public class MomentServiceImpl implements MomentService {
     @Autowired
     private MomentRepository moments;
 
-    public List<Moment> findMomentsOfUser(User user, Integer lastMomentId) {
+    public List<Moment> findMomentsOfUser(User user, Long lastMomentId) {
         return moments.findFirst20ByUserIdAndIdGreaterThan(user.getId(), lastMomentId);
     }
 }

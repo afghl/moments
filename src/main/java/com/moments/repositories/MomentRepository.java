@@ -6,6 +6,6 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 
 import java.util.List;
 
-public interface MomentRepository extends PagingAndSortingRepository<Moment, Integer> {
-    List<Moment> findFirst20ByUserIdAndIdGreaterThan(Integer userId, Integer lastId);
+public interface MomentRepository extends PagingAndSortingRepository<Moment, Long> {
+    List<Moment> findFirst20ByUserIdAndIdGreaterThan(Long userId, Long lastId);
 }

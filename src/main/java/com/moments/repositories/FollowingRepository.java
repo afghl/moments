@@ -6,8 +6,6 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 
 import java.util.List;
 
-public interface FollowingRepository extends PagingAndSortingRepository<Following, Integer> {
-    List<Following> findByUserId(Integer id, Pageable pageRequest);
-
-    List<Following> findByUserId(Integer id);
+public interface FollowingRepository extends PagingAndSortingRepository<Following, Long> {
+    List<Following> findByUserId(Long id);
 }

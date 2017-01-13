@@ -8,5 +8,5 @@ import java.util.List;
 public interface UserService {
     Page<User> findByPage(int page, int pageSize);
 
-    List<User> findFollowers(int userId);
+    List<User> findFollowers(Long userId);
 }

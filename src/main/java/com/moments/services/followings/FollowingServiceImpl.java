@@ -12,7 +12,7 @@ public class FollowingServiceImpl implements FollowingService {
     private FollowingRepository followings;
 
     @Override
-    public void followingEachOther(Integer userId, Integer followerId) throws AlreadyFollowingException {
+    public void followingEachOther(Long userId, Long followerId) throws AlreadyFollowingException {
         Following f1 = new Following(userId, followerId);
         Following f2 = new Following(followerId, userId);
 

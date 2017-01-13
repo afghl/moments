@@ -27,7 +27,7 @@ public class FollowersController {
 
     @RequestMapping(method = GET)
     public String index(
-            @RequestParam int userId,
+            @RequestParam Long userId,
             Model model
     ) {
         List<User> followers = service.findFollowers(userId);
@@ -36,7 +36,7 @@ public class FollowersController {
     }
 
     @RequestMapping(method = POST)
-    public String create(@RequestParam int userId, @RequestParam int followerId, Model model) {
+    public String create(@RequestParam Long userId, @RequestParam Long followerId, Model model) {
         try {
             followingService.followingEachOther(userId, followerId);
             model.addAttribute("status", "success");

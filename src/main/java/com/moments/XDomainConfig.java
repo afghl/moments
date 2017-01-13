@@ -12,9 +12,14 @@ public class XDomainConfig {
     @Bean
     public WebMvcConfigurer corsConfigurer() {
         return new WebMvcConfigurerAdapter() {
+
             @Override
             public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/followers").allowedOrigins("http://localhost:3000");
+                // TODO: learn how to handle cross origin
+                registry
+                    .addMapping("/followers")
+                    .allowedOrigins("http://localhost:3000")
+                    .allowedOrigins("http://localhost:3001");
             }
         };
     }

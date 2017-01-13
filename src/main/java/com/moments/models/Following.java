@@ -6,41 +6,40 @@ import javax.persistence.*;
 public class Following {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
-    private Integer userId;
+    private Long userId;
 
-    private Integer followerId;
+    private Long followerId;
 
-    public Following() {}
+    private Following() {}
 
-    // TODO: how to refactor this?
-    public Following(Integer userId, Integer followerId) {
+    public Following(Long userId, Long followerId) {
         this.userId = userId;
         this.followerId = followerId;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public Integer getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(Integer userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 
-    public Integer getFollowerId() {
+    public Long getFollowerId() {
         return followerId;
     }
 
-    public void setFollowerId(Integer followerId) {
+    public void setFollowerId(Long followerId) {
         this.followerId = followerId;
     }
 }

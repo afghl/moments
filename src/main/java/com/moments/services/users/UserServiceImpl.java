@@ -28,10 +28,10 @@ public class UserServiceImpl implements UserService {
         return users.findAll(pageRequest);
     }
 
-    public List<User> findFollowers(int userId) {
+    public List<User> findFollowers(Long userId) {
         List<Following> followerList = followings.findByUserId(userId);
 
-        List<Integer> ids = followerList
+        List<Long> ids = followerList
                 .stream()
                 .map(Following::getFollowerId)
                 .collect(Collectors.toList());

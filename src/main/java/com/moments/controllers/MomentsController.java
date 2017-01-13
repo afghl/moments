@@ -25,8 +25,8 @@ public class MomentsController {
     @CrossOrigin
     @RequestMapping(value = "/users/{userId}/moments", method = GET)
     public String index(
-            @PathVariable Integer userId,
-            @RequestParam(defaultValue = "0", required = false) int lastMomentId,
+            @PathVariable Long userId,
+            @RequestParam(defaultValue = "0", required = false) Long lastMomentId,
             Model model
     ) {
         User u = new User();

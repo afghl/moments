@@ -47,7 +47,6 @@ public class FollowerControllerTest {
         User u1 = new User("张三", null);
         User u2 = new User("李四", null);
 
-
         userRepository.save(u1);
         userRepository.save(u2);
 
