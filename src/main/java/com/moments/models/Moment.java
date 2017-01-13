@@ -30,6 +30,12 @@ public class Moment {
         updatedAt = new Date();
     }
 
+    @PrePersist
+    private void preInsert() {
+        if (createdAt == null) createdAt = new Date();
+        if (updatedAt == null) updatedAt = new Date();
+    }
+
     public Long getId() {
         return id;
     }

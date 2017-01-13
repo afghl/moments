@@ -18,4 +18,9 @@ public class MomentServiceImpl implements MomentService {
     public List<Moment> findMomentsOfUser(User user, Long lastMomentId) {
         return moments.findFirst20ByUserIdAndIdGreaterThan(user.getId(), lastMomentId);
     }
+
+
+    public Moment save(Moment moment) {
+        return moments.save(moment);
+    }
 }
