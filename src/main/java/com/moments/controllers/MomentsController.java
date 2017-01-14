@@ -59,7 +59,7 @@ public class MomentsController {
         m.setBody(body.get("body"));
         m.setUser(u);
         service.save(m);
-        model.addAttribute(service.save(m));
+        model.addAttribute("items", service.save(m));
 
         return "jsonTemplate";
     }
