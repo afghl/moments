@@ -16,7 +16,7 @@ public class MomentServiceImpl implements MomentService {
     private MomentRepository moments;
 
     public List<Moment> findMomentsOfUser(User user, Long lastMomentId) {
-        return moments.findFirst20ByUserIdAndIdGreaterThan(user.getId(), lastMomentId);
+        return moments.findFirst20ByUserIdAndIdLessThanOrderByIdDesc(user.getId(), lastMomentId);
     }
 
 
@@ -31,6 +31,6 @@ public class MomentServiceImpl implements MomentService {
                             .collect(Collectors.toList());
 
         System.out.println(ids);
-        return moments.findFirst20ByUserIdInAndIdGreaterThan(ids, lastMomentId);
+        return moments.findFirst20ByUserIdInAndIdLessThanOrderByIdDesc(ids, lastMomentId);
     }
 }

@@ -32,7 +32,7 @@ public class FeedsController {
     @RequestMapping(value = "/api/users/{userId}/feeds", method = GET)
     public String index(
             @PathVariable Long userId,
-            @RequestParam(defaultValue = "0", required = false) Long lastMomentId,
+            @RequestParam(defaultValue = Long.MAX_VALUE + "", required = false) Long lastMomentId,
             Model model
     ) {
         // TODO: refactor

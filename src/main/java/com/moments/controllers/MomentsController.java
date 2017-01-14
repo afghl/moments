@@ -30,7 +30,7 @@ public class MomentsController {
     @RequestMapping(value = "/api/users/{userId}/moments", method = GET)
     public String index(
             @PathVariable Long userId,
-            @RequestParam(defaultValue = "0", required = false) Long lastMomentId,
+            @RequestParam(defaultValue = Long.MAX_VALUE + "", required = false) Long lastMomentId,
             Model model
     ) {
         User u = new User();
@@ -49,10 +49,6 @@ public class MomentsController {
             @RequestBody Map<String, String> body,
             Model model
     ) {
-        System.out.println(body);
-        System.out.println(body.get("json"));
-        System.out.println(body.get("body"));
-
         // TODO: throw error when user not existed.
         User u = userRepository.findOne(userId);
         Moment m = new Moment();
