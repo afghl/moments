@@ -35,8 +35,14 @@ public class FeedsController {
             @RequestParam(defaultValue = "0", required = false) Long lastMomentId,
             Model model
     ) {
+        // TODO: refactor
+        User currentUser = new User();
+        currentUser.setId(userId);
+
         // TODO: use redis to improve perfomance.
         List<User> followers = userService.findFollowers(userId);
+        // add user
+        followers.add(currentUser);
 
         List<Moment> feed = service.findMomentsOfUsers(followers, lastMomentId);
 
