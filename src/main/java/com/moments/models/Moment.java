@@ -1,5 +1,9 @@
 package com.moments.models;
 
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -12,10 +16,10 @@ public class Moment {
 
     private String body;
 
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;
 
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date updatedAt;
 
     @ManyToOne
@@ -26,8 +30,6 @@ public class Moment {
 
     public Moment(String body, Long userId) {
         this.body = body;
-        createdAt = new Date();
-        updatedAt = new Date();
     }
 
     @PrePersist
