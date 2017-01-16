@@ -27,7 +27,7 @@ public class RedisHelperTest {
 
     @Test
     public void testAddToSortedSet() {
-        String key = "users:4:feeds";
+        String key = "users:53:feeds";
         Long id = 3L;
 
         helper.addIdToSortedSet(key, id);
@@ -44,7 +44,7 @@ public class RedisHelperTest {
 
     @Test
     public void testBatchAddToSortedSet() {
-        String key = "users:20:feeds";
+        String key = "users:43:feeds";
         SortedSet<Long> ids = new TreeSet<>();
         ids.add(4L);
         ids.add(6L);
@@ -54,9 +54,27 @@ public class RedisHelperTest {
         helper.addIdsToSortedSet(key, ids);
         List<Long> result = helper.getSortedSet(key, 0, 10);
 
-        int i = 0;
+        assertEquals(ids.size(), result.size());
+        int i = 3;
         for (Long id : ids) {
-            assertEquals(id, result.get(i++));
+            assertEquals(id, result.get(i--));
         }
+    }
+
+    @Test
+    public void getOperation() {
+        String key = "users:10:feeds";
+        long[] ids = { 3, 6, 8, 5, 1, 2, 7 };
+        for (long id : ids)
+            helper.addIdToSortedSet(key, id);
+
+        // get 3 ids that less then 5.
+        List<Long> result = helper.getSortedSet(key, 3, 5);
+        System.out.println(result);
+
+        assertEquals(result.size(), 3);
+        assertEquals(3l, (long) result.get(0));
+        assertEquals(2l, (long) result.get(1));
+        assertEquals(1l, (long) result.get(2));
     }
 }

@@ -28,9 +28,9 @@ public class RedisHelper {
         ids.forEach((id) -> addIdToSortedSet(key, id));
     }
 
-    public List<Long> getSortedSet(String key, int limit, int offset) {
+    public List<Long> getSortedSet(String key, int limit, int max) {
         key = NAME_SPACE + key;
-        Set<Object> result = template.opsForZSet().range(key, limit, offset);
+        Set<Object> result = template.opsForZSet().reverseRangeByScore(key, -1, max - 1, 0, limit);
         List<Long> r = new ArrayList<>(limit);
 
         result.forEach((v) -> r.add(Long.parseLong((String) v)));
