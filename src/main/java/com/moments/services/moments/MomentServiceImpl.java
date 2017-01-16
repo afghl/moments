@@ -45,6 +45,11 @@ public class MomentServiceImpl implements MomentService {
     // TODO: aop?
     private void publishMomentId(Long id, Long userId) {
         List<User> followers = userService.findFollowers(userId);
+        // add to self feeding list.
+        User u = new User();
+        u.setId(userId);
+        followers.add(u);
+
         followers.forEach((user) ->
             redisHelper.addIdToSortedSet(user.getRedisFeedKey(), id)
         );

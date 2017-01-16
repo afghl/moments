@@ -51,9 +51,8 @@ public class RedisHelperTest {
         ids.add(8L);
         ids.add(1L);
 
-        // TODO: refactor this
         helper.addIdsToSortedSet(key, ids);
-        List<Long> result = helper.getSortedSet(key, 2, 10);
+        List<Long> result = helper.getSortedSet(key, 0, 10);
 
         int i = 0;
         for (Long id : ids) {
