@@ -24,6 +24,21 @@ public class MomentServiceImpl implements MomentService {
         return moments.save(moment);
     }
 
+    @Override
+    public Moment saveAndPubToFollowers(Moment m, User u) {
+        m.setUser(u);
+        m = moments.save(m);
+
+        publishMomentId(m.getId(), u);
+
+        return m;
+    }
+
+    private void publishMomentId(Long id, User u) {
+        // TODO
+        return;
+    }
+
     public List<Moment> findMomentsOfUsers(List<User> users, Long lastMomentId) {
         List<Long> ids = users
                             .stream()

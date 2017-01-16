@@ -51,12 +51,13 @@ public class MomentsController {
     ) {
         // TODO: throw error when user not existed.
         User u = userRepository.findOne(userId);
+
         Moment m = new Moment();
         m.setBody(body.get("body"));
-        m.setUser(u);
-        service.save(m);
-        model.addAttribute("items", service.save(m));
 
+        service.saveAndPubToFollowers(m, u);
+
+        model.addAttribute("items", service.save(m));
         return "jsonTemplate";
     }
 }

@@ -11,4 +11,6 @@ public interface MomentService {
     List<Moment> findMomentsOfUsers(List<User> users, Long lastMomentId);
 
     Moment save(Moment moment);
+
+    Moment saveAndPubToFollowers(Moment m, User u);
 }
