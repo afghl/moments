@@ -50,11 +50,8 @@ public class MomentServiceImpl implements MomentService {
         u.setId(userId);
         followers.add(u);
 
-        followers.forEach((user) -> {
-            System.out.println(user.getRedisFeedKey());
-            redisHelper.addIdToSortedSet(user.getRedisFeedKey(), id);
-                }
-
+        followers.forEach((user) ->
+            redisHelper.addIdToSortedSet(user.getRedisFeedKey(), id)
         );
     }
 
