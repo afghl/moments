@@ -44,24 +44,21 @@ public class MomentServiceImpl implements MomentService {
 
     // TODO: aop?
     private void publishMomentId(Long id, Long userId) {
-        List<User> followers = userService.findFollowers(userId);
-        // add to self feeding list.
-        User u = new User();
-        u.setId(userId);
-        followers.add(u);
-
+        List<User> followers = userService.findFollowers(userId, true);
         followers.forEach((user) ->
             redisHelper.addIdToSortedSet(user.getRedisFeedKey(), id)
         );
     }
 
-    public List<Moment> findMomentsOfUsers(List<User> users, Long lastMomentId) {
-        List<Long> ids = users
-                            .stream()
-                            .map(User::getId)
-                            .collect(Collectors.toList());
+    @Override
+    public List<Long> findMomentIdsOfUsers(List<User> users) {
+        // TODO: just select id column
+        List<Long> ids = users.stream().map(User::getId).collect(Collectors.toList());
 
-        System.out.println(ids);
-        return moments.findFirst20ByUserIdInAndIdLessThanOrderByIdDesc(ids, lastMomentId);
+        return moments
+                .findByIdIn(ids)
+                .stream()
+                .map(Moment::getId)
+                .collect(Collectors.toList());
     }
 }

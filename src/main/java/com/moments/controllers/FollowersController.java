@@ -30,7 +30,7 @@ public class FollowersController {
             @RequestParam Long userId,
             Model model
     ) {
-        List<User> followers = service.findFollowers(userId);
+        List<User> followers = service.findFollowers(userId, true);
         model.addAttribute("items", followers);
         return "jsonTemplate";
     }

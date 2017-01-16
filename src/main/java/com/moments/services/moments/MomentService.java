@@ -8,7 +8,7 @@ import java.util.List;
 public interface MomentService {
     List<Moment> findMomentsOfUser(User user, Long lastMomentId);
 
-    List<Moment> findMomentsOfUsers(List<User> users, Long lastMomentId);
+    List<Long> findMomentIdsOfUsers(List<User> user);
 
     Moment save(Moment moment);
 

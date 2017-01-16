@@ -4,7 +4,6 @@ import com.moments.models.Following;
 import com.moments.models.User;
 import com.moments.repositories.FollowingRepository;
 import com.moments.repositories.UserRepository;
-import com.moments.services.users.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -28,7 +27,7 @@ public class UserServiceImpl implements UserService {
         return users.findAll(pageRequest);
     }
 
-    public List<User> findFollowers(Long userId) {
+    public List<User> findFollowers(Long userId, boolean includeSelf) {
         List<Following> followerList = followings.findByUserId(userId);
 
         List<Long> ids = followerList
@@ -36,6 +35,11 @@ public class UserServiceImpl implements UserService {
                 .map(Following::getFollowerId)
                 .collect(Collectors.toList());
 
-        return users.findAll(ids);
+        List<User> result = users.findAll(ids);
+
+        if (includeSelf)
+            result.add(users.findOne(userId));
+
+        return result;
     }
 }
