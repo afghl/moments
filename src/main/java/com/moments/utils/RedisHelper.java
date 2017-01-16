@@ -24,8 +24,7 @@ public class RedisHelper {
 
     public void addIdsToSortedSet(String key, Set<Long> ids) {
         // TODO: improve performance.
-        String finalKey = NAME_SPACE + key;
-        ids.forEach((id) -> addIdToSortedSet(finalKey, id));
+        ids.forEach((id) -> addIdToSortedSet(key, id));
     }
 //
 //    public Set<Long> getFromSortedSet(String key) {

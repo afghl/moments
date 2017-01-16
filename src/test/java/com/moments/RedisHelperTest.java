@@ -9,9 +9,11 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = MomentsApplication.class)
@@ -28,11 +30,10 @@ public class RedisHelperTest {
         String key = "users:4:feeds";
         Long id = 3L;
 
-
         helper.addIdToSortedSet(key, id);
-        long count = template.opsForZSet().count(RedisHelper.NAME_SPACE + key, 0, 100000);
+        long count = template.opsForZSet().count(RedisHelper.NAME_SPACE + key, 0, 10);
 
-        Set<Object> ids = template.opsForZSet().range(RedisHelper.NAME_SPACE + key, 0, 100000);
+        Set<Object> ids = template.opsForZSet().range(RedisHelper.NAME_SPACE + key, 0, 10);
 
         assertEquals(ids.size(), 1);
         String idFromRedis = (String)(ids.toArray()[0]);
@@ -41,4 +42,33 @@ public class RedisHelperTest {
         assertEquals(idFromRedis, id.toString());
     }
 
+    @Test
+    public void testBatchAddToSortedSet() {
+        String key = "users:20:feeds";
+        SortedSet<Long> ids = new TreeSet<>();
+        ids.add(4L);
+        ids.add(6L);
+        ids.add(8L);
+        ids.add(1L);
+
+        // TODO: refactor this
+        helper.addIdsToSortedSet(key, ids);
+        template.opsForZSet().count(RedisHelper.NAME_SPACE + key, 0, 10);
+
+        Set<Object> idsFromRedis = template.opsForZSet().range(RedisHelper.NAME_SPACE + key, 0, 10);
+
+        Object[] arr = idsFromRedis.toArray();
+        String[] idsArr = new String[arr.length];
+
+        for (int i = 0; i < arr.length; i++) {
+            idsArr[i] = (String) arr[i];
+        }
+
+
+        assertEquals(idsFromRedis.size(), ids.size());
+        assertEquals(idsArr[0], "1");
+        assertEquals(idsArr[1], "4");
+        assertEquals(idsArr[2], "6");
+        assertEquals(idsArr[3], "8");
+    }
 }
