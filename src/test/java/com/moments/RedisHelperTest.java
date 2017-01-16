@@ -53,22 +53,11 @@ public class RedisHelperTest {
 
         // TODO: refactor this
         helper.addIdsToSortedSet(key, ids);
-        template.opsForZSet().count(RedisHelper.NAME_SPACE + key, 0, 10);
+        List<Long> result = helper.getSortedSet(key, 2, 10);
 
-        Set<Object> idsFromRedis = template.opsForZSet().range(RedisHelper.NAME_SPACE + key, 0, 10);
-
-        Object[] arr = idsFromRedis.toArray();
-        String[] idsArr = new String[arr.length];
-
-        for (int i = 0; i < arr.length; i++) {
-            idsArr[i] = (String) arr[i];
+        int i = 0;
+        for (Long id : ids) {
+            assertEquals(id, result.get(i++));
         }
-
-
-        assertEquals(idsFromRedis.size(), ids.size());
-        assertEquals(idsArr[0], "1");
-        assertEquals(idsArr[1], "4");
-        assertEquals(idsArr[2], "6");
-        assertEquals(idsArr[3], "8");
     }
 }
