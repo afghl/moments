@@ -22,11 +22,12 @@ public class FeedServiceImpl implements FeedService {
     @Override
     public List<Moment> findFeedsOfUser(User u, int l, Long id) {
         // TODO: do not use type casting.
-        List<Long> ids = redisHelper.getSortedSet(u.getRedisFeedKey(), l, id.intValue());
+        int idvalue = id.intValue() == -1 ? Integer.MAX_VALUE : id.intValue();
 
+        List<Long> ids = redisHelper.getSortedSet(u.getRedisFeedKey(), l, idvalue);
         List<Moment> result = new ArrayList<>(l);
+        // TODO: sort!
         moments.findAll(ids).forEach((m) -> result.add(m));
-
         return result;
     }
 }
