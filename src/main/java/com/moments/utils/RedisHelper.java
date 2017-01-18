@@ -23,6 +23,16 @@ public class RedisHelper {
         template.opsForZSet().add(key, id + "", id);
     }
 
+    public void addIdsToList(String key, List<Long> ids) {
+        key = NAME_SPACE + key;
+        template.opsForList().leftPushAll(key, ids);
+    }
+
+    public long sizeOfList(String key) {
+        key = NAME_SPACE + key;
+        return template.opsForList().size(key);
+    }
+
     public void addIdsToSortedSet(String key, Set<Long> ids) {
         // TODO: improve performance.
         ids.forEach((id) -> addIdToSortedSet(key, id));
