@@ -8,7 +8,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -46,10 +45,7 @@ public class AsyncJobs {
 
         do {
             users = userService.findByPage(page++, pageSize);
-            List<Long> ids = new ArrayList<>();
-            users.forEach((u) -> ids.add(u.getId()));
-            redisHelper.addIdsToList(key, ids);
-
+            users.forEach((u) -> redisHelper.addIdToSet(key, u.getId()));
         } while (users.getSize() < pageSize);
     }
 }

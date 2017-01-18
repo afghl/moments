@@ -23,15 +23,18 @@ public class RedisHelper {
         template.opsForZSet().add(key, id + "", id);
     }
 
-    public void addIdsToList(String key, List<Long> ids) {
+    // TODO: batch
+    public void addIdToSet(String key, Long id) {
         key = NAME_SPACE + key;
-        template.opsForList().leftPushAll(key, ids);
+        template.opsForSet().add(key, id.toString());
     }
 
-    public long sizeOfList(String key) {
+    public Long getRandomIdInSet(String key) {
         key = NAME_SPACE + key;
-        return template.opsForList().size(key);
+        Object r =  template.opsForSet().randomMember(key);
+        return Long.parseLong((String) r);
     }
+
 
     public void addIdsToSortedSet(String key, Set<Long> ids) {
         // TODO: improve performance.

@@ -21,7 +21,6 @@ public class MomentsApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... strings) throws Exception {
-		System.out.println(strings);
 		jobs.addUserIdsToRedis();
 	}
 }
