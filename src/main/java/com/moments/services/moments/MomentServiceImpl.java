@@ -53,10 +53,9 @@ public class MomentServiceImpl implements MomentService {
     @Override
     public List<Long> findMomentIdsOfUsers(List<User> users) {
         // TODO: just select id column
-        List<Long> ids = users.stream().map(User::getId).collect(Collectors.toList());
 
         return moments
-                .findByIdIn(ids)
+                .findByUserIn(users)
                 .stream()
                 .map(Moment::getId)
                 .collect(Collectors.toList());

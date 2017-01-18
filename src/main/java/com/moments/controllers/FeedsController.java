@@ -6,6 +6,7 @@ import com.moments.repositories.UserRepository;
 import com.moments.services.feeds.FeedService;
 import com.moments.services.moments.MomentService;
 import com.moments.services.users.UserService;
+import com.moments.utils.AsyncJobs;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,6 +33,9 @@ public class FeedsController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private AsyncJobs jobs;
+
     @CrossOrigin
     @RequestMapping(value = "/api/users/{userId}/feeds", method = GET)
     public String index(
@@ -39,14 +43,16 @@ public class FeedsController {
             @RequestParam(defaultValue = Long.MAX_VALUE + "", required = false) Long lastMomentId,
             Model model
     ) {
-        // TODO: when the cached feed is not existed, it return empty array.
-        //       ensure the cached feed is valid.
-        //       USE async
         // TODO: refactor
         User currentUser = new User();
         currentUser.setId(userId);
 
-        List<Moment> feed = feedService.findFeedsOfUser(currentUser, 20, lastMomentId);
+        int limit = 20;
+        List<Moment> feed = feedService.findFeedsOfUser(currentUser, limit, lastMomentId);
+
+        // if reach the last page, sync feed ids to redis
+        if (feed.size() != limit)
+            jobs.syncUserFeedToRedis(currentUser);
 
         model.addAttribute("items", feed);
 

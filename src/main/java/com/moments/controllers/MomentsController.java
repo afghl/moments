@@ -55,6 +55,8 @@ public class MomentsController {
         Moment m = new Moment();
         m.setBody(body.get("body"));
 
+        // TODO: decouple service and redis task.
+        //       refactor pub action to async jobs?.
         service.saveAndPubToFollowers(m, u);
 
         model.addAttribute("items", service.save(m));

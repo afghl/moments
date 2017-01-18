@@ -28,11 +28,8 @@ public class AsyncJobs {
     @Async
     public void syncUserFeedToRedis(User u) {
         List<User> followers = userService.findFollowers(u.getId(), true);
-
         List<Long> ids = momentService.findMomentIdsOfUsers(followers);
-
         Set<Long> idSet = new HashSet<>(ids);
-        System.out.println(idSet);
         redisHelper.addIdsToSortedSet(u.getRedisFeedKey(), idSet);
     }
 }

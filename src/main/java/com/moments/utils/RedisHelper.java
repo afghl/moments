@@ -31,10 +31,14 @@ public class RedisHelper {
     public List<Long> getSortedSet(String key, int limit, int max) {
         key = NAME_SPACE + key;
         Set<Object> result = template.opsForZSet().reverseRangeByScore(key, -1, max - 1, 0, limit);
+
+        return convertSetToArray(result, limit);
+    }
+
+    private List<Long> convertSetToArray(Set set, int limit) {
         List<Long> r = new ArrayList<>(limit);
 
-        result.forEach((v) -> r.add(Long.parseLong((String) v)));
-
+        set.forEach((v) -> r.add(Long.parseLong((String) v)));
         return r;
     }
 

@@ -11,5 +11,5 @@ import java.util.List;
 public interface MomentRepository extends PagingAndSortingRepository<Moment, Long> {
     List<Moment> findFirst20ByUserIdAndIdLessThanOrderByIdDesc(Long userId, Long lastId);
 
-    List<Moment> findByIdIn(Collection<Long> ids);
+    List<Moment> findByUserIn(Collection<User> users);
 }
