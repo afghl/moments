@@ -27,7 +27,7 @@ public class FeedServiceImpl implements FeedService {
         List<Long> ids = redisHelper.getSortedSet(u.getRedisFeedKey(), l, idvalue);
         List<Moment> result = new ArrayList<>(l);
         // TODO: sort!
-        moments.findAll(ids).forEach((m) -> result.add(m));
+        moments.findByIdInOrderByIdDesc(ids).forEach((m) -> result.add(m));
         return result;
     }
 }

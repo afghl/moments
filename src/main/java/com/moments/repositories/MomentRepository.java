@@ -12,4 +12,6 @@ public interface MomentRepository extends PagingAndSortingRepository<Moment, Lon
     List<Moment> findFirst20ByUserIdAndIdLessThanOrderByIdDesc(Long userId, Long lastId);
 
     List<Moment> findByUserIn(Collection<User> users);
+
+    List<Moment> findByIdInOrderByIdDesc(Collection<Long> ids);
 }
