@@ -6,5 +6,5 @@ import com.moments.models.User;
 import java.util.List;
 
 public interface FeedService {
-    public List<Moment> findFeedsOfUser(User u, int limit, Long lastMomentId);
+    List<Moment> findFeedsOfUser(User u, int limit, Long lastMomentId);
 }
