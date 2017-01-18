@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.moments.utils.RedisKeysPresenter.userFeedCacheKey;
+
 @Service
 public class FeedServiceImpl implements FeedService {
 
@@ -24,9 +26,10 @@ public class FeedServiceImpl implements FeedService {
         // TODO: do not use type casting.
         int idvalue = id.intValue() == -1 ? Integer.MAX_VALUE : id.intValue();
 
-        List<Long> ids = redisHelper.getSortedSet(u.getRedisFeedKey(), l, idvalue);
+        List<Long> ids = redisHelper.getSortedSet(
+                userFeedCacheKey(u), l, idvalue
+        );
         List<Moment> result = new ArrayList<>(l);
-        // TODO: sort!
         moments.findByIdInOrderByIdDesc(ids).forEach((m) -> result.add(m));
         return result;
     }

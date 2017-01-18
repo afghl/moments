@@ -1,6 +1,5 @@
 package com.moments.utils;
 
-import com.moments.models.Moment;
 import com.moments.models.User;
 import com.moments.services.moments.MomentService;
 import com.moments.services.users.UserService;
@@ -11,7 +10,8 @@ import org.springframework.stereotype.Component;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
+
+import static com.moments.utils.RedisKeysPresenter.userFeedCacheKey;
 
 @Component
 public class AsyncJobs {
@@ -30,6 +30,7 @@ public class AsyncJobs {
         List<User> followers = userService.findFollowers(u.getId(), true);
         List<Long> ids = momentService.findMomentIdsOfUsers(followers);
         Set<Long> idSet = new HashSet<>(ids);
-        redisHelper.addIdsToSortedSet(u.getRedisFeedKey(), idSet);
+
+        redisHelper.addIdsToSortedSet(userFeedCacheKey(u), idSet);
     }
 }
