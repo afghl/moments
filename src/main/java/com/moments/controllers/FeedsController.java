@@ -55,7 +55,7 @@ public class FeedsController {
             jobs.syncUserFeedToRedis(currentUser);
 
         model.addAttribute("items", feed);
-
         return "jsonTemplate";
     }
+
 }
