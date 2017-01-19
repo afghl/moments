@@ -26,7 +26,6 @@ public class MomentsController {
     @Autowired
     private UserRepository userRepository;
 
-    @CrossOrigin
     @RequestMapping(value = "/api/users/{userId}/moments", method = GET)
     public String index(
             @PathVariable Long userId,

@@ -7,6 +7,7 @@ import com.moments.services.users.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -16,7 +17,6 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 @Controller
-@RequestMapping("/api/followers")
 public class FollowersController {
 
     @Autowired
@@ -25,9 +25,9 @@ public class FollowersController {
     @Autowired
     private FollowingService followingService;
 
-    @RequestMapping(method = GET)
+    @RequestMapping(value = "/api/users/{userId}/followers", method = GET)
     public String index(
-            @RequestParam Long userId,
+            @PathVariable Long userId,
             Model model
     ) {
         List<User> followers = service.findFollowers(userId, true);
@@ -35,10 +35,11 @@ public class FollowersController {
         return "jsonTemplate";
     }
 
-    @RequestMapping(method = POST)
-    public String create(@RequestParam Long userId, @RequestParam Long followerId, Model model) {
+    @RequestMapping(value = "/api/users/{userId}/followers", method = POST)
+    public String create(@PathVariable Long userId, @RequestParam Long followerId, Model model) {
         try {
             followingService.followingEachOther(userId, followerId);
+            // use standard http code for status
             model.addAttribute("status", "success");
         } catch (AlreadyFollowingException e) {
             e.printStackTrace();
