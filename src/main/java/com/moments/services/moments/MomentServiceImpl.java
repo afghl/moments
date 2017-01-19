@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.moments.utils.RedisKeysPresenter.userFeedCacheKey;
+
 @Service
 public class MomentServiceImpl implements MomentService {
 
@@ -46,7 +48,8 @@ public class MomentServiceImpl implements MomentService {
     private void publishMomentId(Long id, Long userId) {
         List<User> followers = userService.findFollowers(userId, true);
         followers.forEach((user) ->
-            redisHelper.addIdToSortedSet(user.getRedisFeedKey(), id)
+            redisHelper.addIdToSortedSet(
+                    userFeedCacheKey(user), id)
         );
     }
 

@@ -2,7 +2,6 @@ package com.moments.controllers;
 
 import com.moments.models.Moment;
 import com.moments.models.User;
-import com.moments.repositories.UserRepository;
 import com.moments.services.feeds.FeedService;
 import com.moments.services.moments.MomentService;
 import com.moments.services.users.UserService;
@@ -16,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
@@ -52,7 +50,7 @@ public class FeedsController {
 
         // if reach the last page, sync feed ids to redis
         if (feed.size() != limit)
-            jobs.syncUserFeedToRedis(currentUser);
+            jobs.addUserFeedToRedis(currentUser);
 
         model.addAttribute("items", feed);
         return "jsonTemplate";

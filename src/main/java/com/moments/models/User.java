@@ -50,7 +50,4 @@ public class User {
         this.avatar = avatar;
     }
 
-    public String getRedisFeedKey() {
-        return "user:" + id + ":feeds";
-    }
 }
