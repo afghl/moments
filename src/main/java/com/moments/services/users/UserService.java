@@ -11,4 +11,6 @@ public interface UserService {
     User findOne(Long userId);
 
     List<User> findFollowers(Long userId, boolean includeSelf);
+
+    List<User> findRandomUsers(int limit);
 }

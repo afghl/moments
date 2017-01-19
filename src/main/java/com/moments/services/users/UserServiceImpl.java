@@ -4,15 +4,19 @@ import com.moments.models.Following;
 import com.moments.models.User;
 import com.moments.repositories.FollowingRepository;
 import com.moments.repositories.UserRepository;
+import com.moments.utils.RedisHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static com.moments.utils.RedisKeysPresenter.usersCacheKey;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -23,6 +27,9 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private FollowingRepository followings;
 
+    @Autowired
+    private RedisHelper helper;
+
     public Page<User> findByPage(int page, int pageSize) {
         Pageable pageRequest = new PageRequest(page, pageSize);
         return users.findAll(pageRequest);
@@ -30,6 +37,16 @@ public class UserServiceImpl implements UserService {
 
     public User findOne(Long id) {
         return users.findOne(id);
+    }
+
+    @Override
+    public List<User> findRandomUsers(int limit) {
+        // TODO: filter out followers of current user.
+        List<Long> ids = new ArrayList<>(limit);
+        for (int i = 0; i < limit; i++) {
+            ids.add(helper.getRandomIdInSet(usersCacheKey()));
+        }
+        return users.findAll(ids);
     }
 
     public List<User> findFollowers(Long userId, boolean includeSelf) {

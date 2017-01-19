@@ -24,24 +24,13 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 public class UsersController {
 
     @Autowired
-    private RedisHelper helper;
-
-    @Autowired
-    private UserRepository repository;
+    private UserService userService;
 
     @RequestMapping(value = "", method = GET)
     public String index(
             Model model
     ) {
-        // TODO: filter out followers of current user.
-        int limit = 10;
-        List<Long> ids = new ArrayList<>(limit);
-        for (int i = 0; i < limit; i++) {
-            ids.add(helper.getRandomIdInSet(usersCacheKey()));
-        }
-
-        model.addAttribute("items", repository.findAll(ids));
-
+        model.addAttribute("items", userService.findRandomUsers(10));
         return "jsonTemplate";
     }
 }
