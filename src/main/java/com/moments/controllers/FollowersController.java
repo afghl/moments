@@ -57,15 +57,15 @@ public class FollowersController {
         User follower = service.findOne(followerId);
         // TODO: render 404 when user or follower is not found.
         if ("follow".equals(type)) {
-            handleFollow(user, follower, model);
+            handleFollow(user, follower);
         } else if ("unfollow".equals(type)) {
-            handleUnfollow(user, follower, model);
+            handleUnfollow(user, follower);
         }
 
         return "jsonTemplate";
     }
 
-    private void handleFollow(User u, User f, Model model) {
+    private void handleFollow(User u, User f) {
         try {
             followingService.follow(u.getId(), f.getId());
             // TODO: use standard http code for status
@@ -78,7 +78,7 @@ public class FollowersController {
         }
     }
 
-    private void handleUnfollow(User u, User f, Model model) {
+    private void handleUnfollow(User u, User f) {
         followingService.unfollow(u.getId(), f.getId());
         // remove follower's moment to user's feed.
         jobs.removeFollowerMomentsFromUserFeedList(u, f);
