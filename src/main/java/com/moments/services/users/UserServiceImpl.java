@@ -10,6 +10,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -42,7 +43,21 @@ public class UserServiceImpl implements UserService {
         List<User> result = users.findAll(ids);
 
         if (includeSelf)
-            result.add(users.findOne(userId));
+            result = addUserToList(result, userId);
+
+        return result;
+    }
+
+    // FIXME: when jpa return empty result, cannot call add api.
+    private List<User> addUserToList(List<User> result, Long userId) {
+        User u = users.findOne(userId);
+        
+        if (result.isEmpty()) {
+            User[] us = {u};
+            result = Arrays.asList(us);
+        } else {
+            result.add(u);
+        }
 
         return result;
     }

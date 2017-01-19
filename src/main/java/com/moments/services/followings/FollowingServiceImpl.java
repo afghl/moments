@@ -26,7 +26,8 @@ public class FollowingServiceImpl implements FollowingService {
 
     @Override
     public void unfollow(Long userId, Long followerId) {
-        followings.delete(createFollowingsFrom(userId, followerId));
+        followings.deleteByUserIdAndFollowerId(userId, followerId);
+        followings.deleteByUserIdAndFollowerId(followerId, userId);
     }
 
     private List<Following> createFollowingsFrom(Long userId, Long followerId) {

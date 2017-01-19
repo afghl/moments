@@ -33,7 +33,7 @@ public class UsersController {
     public String index(
             Model model
     ) {
-        // TODO: dont find any followers of current user.
+        // TODO: filter out followers of current user.
         int limit = 10;
         List<Long> ids = new ArrayList<>(limit);
         for (int i = 0; i < limit; i++) {
