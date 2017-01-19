@@ -5,6 +5,11 @@ import com.moments.repositories.FollowingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 @Service
 public class FollowingServiceImpl implements FollowingService {
 
@@ -12,12 +17,23 @@ public class FollowingServiceImpl implements FollowingService {
     private FollowingRepository followings;
 
     @Override
-    public void followingEachOther(Long userId, Long followerId) throws AlreadyFollowingException {
+    public void follow(Long userId, Long followerId) throws AlreadyFollowingException {
+        // TODO: ensure following uniq.
+        followings.save(createFollowingsFrom(userId, followerId));
+
+    }
+
+
+    @Override
+    public void unfollow(Long userId, Long followerId) {
+        followings.delete(createFollowingsFrom(userId, followerId));
+    }
+
+    private List<Following> createFollowingsFrom(Long userId, Long followerId) {
         Following f1 = new Following(userId, followerId);
         Following f2 = new Following(followerId, userId);
 
-        // TODO: ensure following uniq.
-        followings.save(f1);
-        followings.save(f2);
+        return new ArrayList<>(Arrays.asList(f1, f2));
     }
+
 }

@@ -27,6 +27,10 @@ public class UserServiceImpl implements UserService {
         return users.findAll(pageRequest);
     }
 
+    public User findOne(Long id) {
+        return users.findOne(id);
+    }
+
     public List<User> findFollowers(Long userId, boolean includeSelf) {
         List<Following> followerList = followings.findByUserId(userId);
 

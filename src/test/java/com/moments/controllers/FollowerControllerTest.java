@@ -1,13 +1,10 @@
 package com.moments.controllers;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.moments.MomentsApplication;
 import com.moments.models.User;
-import com.moments.repositories.FollowingRepository;
 import com.moments.repositories.UserRepository;
 import com.moments.services.followings.AlreadyFollowingException;
 import com.moments.services.followings.FollowingService;
-import com.moments.services.followings.FollowingServiceImpl;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -50,7 +47,7 @@ public class FollowerControllerTest {
         userRepository.save(u1);
         userRepository.save(u2);
 
-        followings.followingEachOther(u1.getId(), u2.getId());
+        followings.follow(u1.getId(), u2.getId());
 
         mvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
     }

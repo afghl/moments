@@ -2,6 +2,7 @@ package com.moments;
 
 
 import com.moments.utils.RedisHelper;
+import org.assertj.core.util.Sets;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -76,5 +77,27 @@ public class RedisHelperTest {
         assertEquals(3l, (long) result.get(0));
         assertEquals(2l, (long) result.get(1));
         assertEquals(1l, (long) result.get(2));
+    }
+
+    @Test
+    public void testRemoveIdsToSortedSet() {
+        String key = "testRemoveids";
+        long[] ids = { 1, 2, 3 };
+        for (long id : ids)
+            helper.addIdToSortedSet(key, id);
+
+        // get 3 ids that less then 4.
+        List<Long> result = helper.getSortedSet(key, 3, 4);
+
+        assertEquals(result.size(), 3);
+        Set<Long> removeSet = new HashSet<>();
+        removeSet.add(1l);
+        removeSet.add(2l);
+        removeSet.add(3l);
+        helper.removeIdsFromSortedSet(key, removeSet);
+
+        // get 3 ids that less then 4.
+        result = helper.getSortedSet(key, 3, 4);
+        assertEquals(result.size(), 0);
     }
 }

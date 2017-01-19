@@ -48,6 +48,11 @@ public class RedisHelper {
         return convertSetToArray(result, limit);
     }
 
+    // TODO: batch
+    public void removeIdsFromSortedSet(String key, Set<Long> idSet) {
+        idSet.forEach((v) -> template.opsForZSet().remove(NAME_SPACE + key, v.toString()));
+    }
+
     private List<Long> convertSetToArray(Set set, int limit) {
         List<Long> r = new ArrayList<>(limit);
 
