@@ -44,6 +44,14 @@ public class Comment {
         this.id = id;
     }
 
+    public Moment getMoment() {
+        return moment;
+    }
+
+    public void setMoment(Moment moment) {
+        this.moment = moment;
+    }
+
     public String getBody() {
         return body;
     }
