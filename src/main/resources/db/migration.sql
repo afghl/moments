@@ -4,7 +4,7 @@ CREATE TABLE `user` (
   `name` varchar(255) CHARACTER SET utf8 NOT NULL,
   `avatar` varchar(255) CHARACTER SET utf8 NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
 
 DROP TABLE IF EXISTS `following`;
 CREATE TABLE `following` (
@@ -22,7 +22,7 @@ CREATE TABLE `moment` (
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
 
 DROP TABLE IF EXISTS `comment`;
 CREATE TABLE `comment` (
@@ -39,7 +39,7 @@ CREATE TABLE `comment` (
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
 
 INSERT INTO `user` VALUES (1, '周杰伦', '');
 INSERT INTO `user` VALUES (2, '蔡依林', '');
