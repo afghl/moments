@@ -2,9 +2,7 @@ package com.moments.controllers;
 
 import com.moments.models.Moment;
 import com.moments.models.User;
-import com.moments.services.comments.CommentService;
 import com.moments.services.feeds.FeedService;
-import com.moments.services.moments.MomentService;
 import com.moments.services.users.UserService;
 import com.moments.utils.AsyncJobs;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,9 +29,6 @@ public class FeedsController {
 
     @Autowired
     private AsyncJobs jobs;
-
-    @Autowired
-    private CommentService commentService;
 
     @CrossOrigin
     @RequestMapping(value = "/api/users/{userId}/feeds", method = GET)
