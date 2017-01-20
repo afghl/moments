@@ -19,7 +19,7 @@ public class Moment {
     private Date updatedAt;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", foreignKey = @javax.persistence.ForeignKey(name = "none", value = ConstraintMode.NO_CONSTRAINT))
     private User user;
 
     public Moment() {}

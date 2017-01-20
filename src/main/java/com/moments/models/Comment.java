@@ -11,7 +11,7 @@ public class Comment {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "moment_id")
+    @JoinColumn(name = "moment_id", foreignKey = @javax.persistence.ForeignKey(name = "none", value = ConstraintMode.NO_CONSTRAINT))
     private Moment moment;
 
     private String body;
