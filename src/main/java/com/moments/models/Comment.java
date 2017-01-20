@@ -10,7 +10,9 @@ public class Comment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long momentId;
+    @ManyToOne
+    @JoinColumn(name = "moment_id")
+    private Moment moment;
 
     private String body;
 
@@ -42,12 +44,12 @@ public class Comment {
         this.id = id;
     }
 
-    public Long getMomentId() {
-        return momentId;
+    public Moment getMoment() {
+        return moment;
     }
 
-    public void setMomentId(Long momentId) {
-        this.momentId = momentId;
+    public void setMoment(Moment moment) {
+        this.moment = moment;
     }
 
     public String getBody() {

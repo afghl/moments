@@ -2,6 +2,7 @@ package com.moments.controllers;
 
 import com.moments.models.Moment;
 import com.moments.models.User;
+import com.moments.services.comments.CommentService;
 import com.moments.services.feeds.FeedService;
 import com.moments.services.moments.MomentService;
 import com.moments.services.users.UserService;
@@ -23,9 +24,6 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 public class FeedsController {
 
     @Autowired
-    private MomentService service;
-
-    @Autowired
     private FeedService feedService;
 
     @Autowired
@@ -34,6 +32,9 @@ public class FeedsController {
     @Autowired
     private AsyncJobs jobs;
 
+    @Autowired
+    private CommentService commentService;
+
     @CrossOrigin
     @RequestMapping(value = "/api/users/{userId}/feeds", method = GET)
     public String index(
@@ -41,13 +42,13 @@ public class FeedsController {
             @RequestParam(defaultValue = Long.MAX_VALUE + "", required = false) Long lastMomentId,
             Model model
     ) {
-        // TODO: refactor
-        User currentUser = new User();
-        currentUser.setId(userId);
+        // TODO: return 404 unless current user
+        User currentUser = userService.findOne(userId);
 
         int limit = 20;
         List<Moment> feed = feedService.findFeedsOfUser(currentUser, limit, lastMomentId);
 
+        commentService.mapComments(feed, currentUser);
         // if reach the last page, sync feed ids to redis
         if (feed.size() != limit)
             jobs.addUserFeedToRedis(currentUser);
