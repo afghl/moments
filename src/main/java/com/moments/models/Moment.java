@@ -24,7 +24,7 @@ public class Moment {
     @JoinColumn(name = "user_id", foreignKey = @javax.persistence.ForeignKey(name = "none", value = ConstraintMode.NO_CONSTRAINT))
     private User user;
 
-    @OneToMany(cascade = { CascadeType.ALL }, mappedBy = "moment")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "moment")
     private Collection<Comment> comments = new ArrayList<>();
 
     public Moment() {}
