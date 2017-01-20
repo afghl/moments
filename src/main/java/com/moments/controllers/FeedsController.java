@@ -45,11 +45,10 @@ public class FeedsController {
         // TODO: return 404 unless current user
         User currentUser = userService.findOne(userId);
 
+        // TODO: will this cause n + 1 query?
         int limit = 20;
         List<Moment> feed = feedService.findFeedsOfUser(currentUser, limit, lastMomentId);
 
-        commentService.mapComments(feed, currentUser);
-        // if reach the last page, sync feed ids to redis
         if (feed.size() != limit)
             jobs.addUserFeedToRedis(currentUser);
 
