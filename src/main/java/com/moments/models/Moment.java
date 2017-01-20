@@ -1,6 +1,10 @@
 package com.moments.models;
 
+import org.hibernate.annotations.BatchSize;
+
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 
 @Entity
@@ -18,9 +22,14 @@ public class Moment {
     @Temporal(TemporalType.TIMESTAMP)
     private Date updatedAt;
 
+    // TODO: this may cause n + 1 query
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", foreignKey = @javax.persistence.ForeignKey(name = "none", value = ConstraintMode.NO_CONSTRAINT))
     private User user;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "moment", fetch = FetchType.LAZY)
+    @BatchSize(size = 20)
+    private Collection<Comment> comments = new ArrayList<>();
 
     public Moment() {}
 
@@ -72,5 +81,13 @@ public class Moment {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public Collection<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(Collection<Comment> comments) {
+        this.comments = comments;
     }
 }

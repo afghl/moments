@@ -35,7 +35,6 @@ public class RedisHelper {
         return Long.parseLong((String) r);
     }
 
-
     public void addIdsToSortedSet(String key, Set<Long> ids) {
         // TODO: improve performance.
         ids.forEach((id) -> addIdToSortedSet(key, id));

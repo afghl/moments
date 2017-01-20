@@ -16,7 +16,7 @@ public class User {
 
     private String avatar;
 
-    @OneToMany(cascade = { CascadeType.ALL }, mappedBy = "user")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private Collection<Moment> moments = new ArrayList<>();
 
     public User() {}

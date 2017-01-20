@@ -3,7 +3,6 @@ package com.moments.controllers;
 import com.moments.models.Moment;
 import com.moments.models.User;
 import com.moments.services.feeds.FeedService;
-import com.moments.services.moments.MomentService;
 import com.moments.services.users.UserService;
 import com.moments.utils.AsyncJobs;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,9 +22,6 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 public class FeedsController {
 
     @Autowired
-    private MomentService service;
-
-    @Autowired
     private FeedService feedService;
 
     @Autowired
@@ -41,14 +37,13 @@ public class FeedsController {
             @RequestParam(defaultValue = Long.MAX_VALUE + "", required = false) Long lastMomentId,
             Model model
     ) {
-        // TODO: refactor
-        User currentUser = new User();
-        currentUser.setId(userId);
+        // TODO: return 404 unless current user
+        User currentUser = userService.findOne(userId);
 
+        // TODO: will this cause n + 1 query?
         int limit = 20;
         List<Moment> feed = feedService.findFeedsOfUser(currentUser, limit, lastMomentId);
 
-        // if reach the last page, sync feed ids to redis
         if (feed.size() != limit)
             jobs.addUserFeedToRedis(currentUser);
 
