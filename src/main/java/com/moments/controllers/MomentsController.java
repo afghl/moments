@@ -41,7 +41,6 @@ public class MomentsController {
         return "jsonTemplate";
     }
 
-    @CrossOrigin
     @RequestMapping(value = "/api/users/{userId}/moments", method = POST, produces = "application/json")
     public String create(
             @PathVariable Long userId,

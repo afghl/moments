@@ -36,7 +36,10 @@ public class UserServiceImpl implements UserService {
     }
 
     public User findOne(Long id) {
-        return users.findOne(id);
+        if (id == null)
+            return null;
+        else
+            return users.findOne(id);
     }
 
     @Override
