@@ -16,10 +16,10 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public Comment replyOnMoment(Integer type, String body, Moment m, User user, User other) {
         // TODO: validate if user can reply on this moment.
-        System.out.println("replyOnMoment");
+        // TODO: validate if user already like this moment.
         Comment c = new Comment();
+
         c.setMoment(m);
-        System.out.println(Long.valueOf(type));
         c.setType(Long.valueOf(type));
         c.setBody(body);
         c.setUserId(user.getId());
@@ -32,7 +32,7 @@ public class CommentServiceImpl implements CommentService {
         }
 
         comments.save(c);
-        System.out.println("after save c.getId is" + c.getId());
+
         return c;
     }
 }

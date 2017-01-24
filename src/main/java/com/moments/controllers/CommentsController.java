@@ -38,24 +38,20 @@ public class CommentsController {
     ) {
 
         Long userId = Long.valueOf(body.get("userId"));
-
         Long otherId;
+
         if (body.get("otherId") != null) {
             otherId = Long.valueOf(body.get("otherId"));
         } else {
             otherId = null;
         }
 
-        System.out.println("user id is " +userId + ",  other id is " + otherId);
-
         // TODO: render 404 if no moments or user not present.
         Moment m = momentService.findOne(momentId);
         User u = userService.findOne(userId);
         User other = userService.findOne(otherId);
 
-
         Integer type = Integer.valueOf(body.get("type"));
-        System.out.println("type is " + type);
         String commentBody = body.get("body");
 
         try {

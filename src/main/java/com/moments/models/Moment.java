@@ -1,5 +1,8 @@
 package com.moments.models;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import org.hibernate.annotations.BatchSize;
 
 import javax.persistence.*;
@@ -29,6 +32,7 @@ public class Moment {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "moment", fetch = FetchType.LAZY)
     @BatchSize(size = 20)
+    @JsonManagedReference
     private Collection<Comment> comments = new ArrayList<>();
 
     public Moment() {}
