@@ -35,4 +35,11 @@ public class CommentServiceImpl implements CommentService {
 
         return c;
     }
+
+    @Override
+    public void delete(Long id) {
+        comments.delete(id);
+    }
+
+
 }

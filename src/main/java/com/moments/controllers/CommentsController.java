@@ -63,4 +63,14 @@ public class CommentsController {
         }
         return "jsonTemplate";
     }
+
+    @RequestMapping(value = "/api/moments/{momentId}/comments/{commentId}/destroy",
+            method = POST, produces = "application/json")
+    public String destoy(
+            @PathVariable Long momentId,
+            @PathVariable Long commentId
+    ) {
+        service.delete(commentId);
+        return "jsonTemplate";
+    }
 }
