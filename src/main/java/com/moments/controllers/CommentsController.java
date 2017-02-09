@@ -70,6 +70,8 @@ public class CommentsController {
             @PathVariable Long momentId,
             @PathVariable Long commentId
     ) {
+
+        // TODO: validate if user can delete this comment.
         service.delete(commentId);
         return "jsonTemplate";
     }
