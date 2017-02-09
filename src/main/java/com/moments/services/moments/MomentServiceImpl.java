@@ -63,4 +63,9 @@ public class MomentServiceImpl implements MomentService {
                 .map(Moment::getId)
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public Moment findOne(Long id) {
+        return moments.findOne(id);
+    }
 }

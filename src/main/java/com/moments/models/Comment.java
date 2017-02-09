@@ -1,6 +1,8 @@
 package com.moments.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.moments.serializers.CommentSerializer;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -12,9 +14,11 @@ public class Comment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @JsonIgnore
+    // return moment_id
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "moment_id", foreignKey = @javax.persistence.ForeignKey(name = "none", value = ConstraintMode.NO_CONSTRAINT))
+//    @JsonBackReference
+    @JsonSerialize(using = CommentSerializer.class)
     private Moment moment;
 
     private String body;
@@ -38,6 +42,12 @@ public class Comment {
 
     @Temporal(TemporalType.TIMESTAMP)
     private Date updatedAt;
+
+    @PrePersist
+    private void preInsert() {
+        if (createdAt == null) createdAt = new Date();
+        if (updatedAt == null) updatedAt = new Date();
+    }
 
     public Long getId() {
         return id;

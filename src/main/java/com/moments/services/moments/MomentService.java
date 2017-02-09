@@ -13,4 +13,6 @@ public interface MomentService {
     Moment save(Moment moment);
 
     Moment saveAndPubToFollowers(Moment m, User u);
+
+    Moment findOne(Long id);
 }
