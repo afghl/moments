@@ -44,6 +44,7 @@ public class FeedsController {
         int limit = 20;
         List<Moment> feed = feedService.findFeedsOfUser(currentUser, limit, lastMomentId);
 
+        // refresh redis cache if last page is fetched.
         if (feed.size() != limit)
             jobs.addUserFeedToRedis(currentUser);
 
