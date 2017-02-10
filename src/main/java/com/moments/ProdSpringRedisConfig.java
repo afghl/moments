@@ -9,14 +9,14 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 @Configuration
-@Profile("dev")
-public class SpringRedisConfig {
-
+@Profile("prod")
+public class ProdSpringRedisConfig {
     @Bean
     public JedisConnectionFactory connectionFactory() {
         JedisConnectionFactory connectionFactory = new JedisConnectionFactory();
-        connectionFactory.setHostName("localhost");
+        connectionFactory.setHostName("r-wz9abfdf28d86c04.redis.rds.aliyuncs.com");
         connectionFactory.setPort(6379);
+        connectionFactory.setPassword("abcABC123");
         return connectionFactory;
     }
 
@@ -34,5 +34,4 @@ public class SpringRedisConfig {
         redisTemplate.setConnectionFactory(connectionFactory());
         return redisTemplate;
     }
-
 }
