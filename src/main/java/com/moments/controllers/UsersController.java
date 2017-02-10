@@ -30,7 +30,7 @@ public class UsersController {
     public String index(
             Model model
     ) {
-        model.addAttribute("items", userService.findRandomUsers(10));
+        model.addAttribute("items", userService.findRandomUsers(5));
         return "jsonTemplate";
     }
 }

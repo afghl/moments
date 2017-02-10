@@ -78,10 +78,10 @@ INSERT INTO `following` VALUES (NULL, 1, 3);
 INSERT INTO `following` VALUES (NULL, 2, 1);
 INSERT INTO `following` VALUES (NULL, 3, 1);
 
-INSERT INTO `moment` VALUES (NULL, 1, '天气真好~~', NOW(), NOW());
-INSERT INTO `moment` VALUES (NULL, 2, '蔡依林：呵呵', NOW(), NOW());
+INSERT INTO `moment` VALUES (1, 1, '天气真好~~', NOW(), NOW());
+INSERT INTO `moment` VALUES (2, 2, '蔡依林：呵呵', NOW(), NOW());
 
-INSERT INTO `comment` VALUES (NULL, 1, '是啊，天气好。', 1, 3, 'Hebe', '', NULL, NULL, NULL, NOW(), NOW());
-INSERT INTO `comment` VALUES (NULL, 1, '好。', 1, 1, '周杰伦', '', 3, 'Hebe', '', NOW(), NOW());
-INSERT INTO `comment` VALUES (NULL, 1, NULL, 2, 1, '周杰伦', '', NULL, NULL, NULL, NOW(), NOW());
-INSERT INTO `comment` VALUES (NULL, 1, NULL, 2, 2, 'Hebe', '', NULL, NULL, NULL, NOW(), NOW());
+INSERT INTO `comment` VALUES (1, 1, '是啊，天气好。', 1, 3, 'Hebe', 'http://moments-asset.oss-cn-shenzhen.aliyuncs.com/image3.jpg', NULL, NULL, NULL, NOW(), NOW());
+INSERT INTO `comment` VALUES (2, 1, '好。', 1, 1, '周杰伦', 'http://moments-asset.oss-cn-shenzhen.aliyuncs.com/image1.jpg', 3, 'Hebe', 'http://moments-asset.oss-cn-shenzhen.aliyuncs.com/image3.jpg', NOW(), NOW());
+INSERT INTO `comment` VALUES (3, 1, NULL, 2, 1, '周杰伦', 'http://moments-asset.oss-cn-shenzhen.aliyuncs.com/image1.jpg', NULL, NULL, NULL, NOW(), NOW());
+INSERT INTO `comment` VALUES (4, 1, NULL, 2, 3, 'Hebe', 'http://moments-asset.oss-cn-shenzhen.aliyuncs.com/image3.jpg', NULL, NULL, NULL, NOW(), NOW());
