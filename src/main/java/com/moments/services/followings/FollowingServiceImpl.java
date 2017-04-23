@@ -31,10 +31,9 @@ public class FollowingServiceImpl implements FollowingService {
     }
 
     private List<Following> createFollowingsFrom(Long userId, Long followerId) {
-        Following f1 = new Following(userId, followerId);
-        Following f2 = new Following(followerId, userId);
-
-        return new ArrayList<>(Arrays.asList(f1, f2));
+        return Arrays.asList(
+                new Following(userId, followerId),
+                new Following(followerId, userId));
     }
 
 }
