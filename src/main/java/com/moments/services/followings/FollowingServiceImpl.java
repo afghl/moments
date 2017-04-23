@@ -20,9 +20,7 @@ public class FollowingServiceImpl implements FollowingService {
     public void follow(Long userId, Long followerId) throws AlreadyFollowingException {
         // TODO: ensure following uniq.
         followings.save(createFollowingsFrom(userId, followerId));
-
     }
-
 
     @Override
     public void unfollow(Long userId, Long followerId) {
